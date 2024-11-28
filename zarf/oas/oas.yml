@@ -1,0 +1,163 @@
+openapi: 3.0.3
+info:
+  title: Service Sales APIs Definition
+  description: |
+    # About Us
+    The service project is solving the problem of providing a backend for a sales-api that supports the running 
+    of a multi-family garage sale. Authenticated users can manage users, products and sales.
+  termsOfService: https://eazyshop.com/terms/
+  contact:
+    name: Mohamed Bamoh
+    url: https://github.com/mobamoh/service-oas
+    email: mbamoh@icloud.com
+  license:
+    name: Service Sales APIs
+    url: https://github.com/ardanlabs/service/blob/master/LICENSE
+  version: 0.0.1
+externalDocs:
+  description: External Documentation
+  url: https://github.com/ardanlabs/service/wiki
+servers:
+  - url: https://development.eazyshop-server.com/v1
+    description: Development server
+tags:
+  - name: Users
+    description: Users related operations
+paths:
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Create User
+      description: Create a user in the system
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  $ref: "#/components/schemas/UserCommand"
+      responses:
+        '201':
+          description: Return User details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          links:
+            queryUserByID:
+              $ref: '#/components/links/queryUserByID'
+    put:
+      tags:
+        - Users
+      summary: Update User
+      description: Update the user details in the system
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  $ref: "#/components/schemas/UserCommand"
+      responses:
+        '200':
+          description: Return User details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /users/{userId}:
+    get:
+      tags:
+        - Users
+      summary: Return user details
+      description: Returns the user details from Sales System
+      operationId: queryUserByID
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/userIdPathParam"
+      responses:
+        '200':
+          description: Return User details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      description: Deletes the user from the Sales System
+      operationId: deleteUserByID
+      security: []
+      parameters:
+        - $ref: "#/components/parameters/userIdPathParam"
+      responses:
+        '204':
+          description: User deleted successfully
+
+components:
+  parameters:
+    userIdPathParam:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        department:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+            enum:
+              - ADMIN
+              - USER
+        enabled:
+          type: boolean
+        dateCreated:
+          type: string
+        dateUpdated:
+          type: string
+    UserCommand:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        Roles:
+          type: array
+          items:
+            type: string
+            enum:
+              - ADMIN
+              - USER
+        department:
+          type: string
+        password:
+          type: string
+        passwordConfirm:
+          type: string
+  links:
+    queryUserByID:
+      description: >
+        The `id` value returned in the response can be used as input parameter in `GET /users/{userId}`.
+      operationId: queryUserByID
+      parameters:
+        orderId: '$response.body#/id'
+
