@@ -18,7 +18,7 @@ var _ Handler = UnimplementedHandler{}
 // Create a user in the system.
 //
 // POST /users
-func (UnimplementedHandler) CreateUser(ctx context.Context, req OptCreateUserReq) (r *User, _ error) {
+func (UnimplementedHandler) CreateUser(ctx context.Context, req OptUserCommand) (r *User, _ error) {
 	return r, ht.ErrNotImplemented
 }
 

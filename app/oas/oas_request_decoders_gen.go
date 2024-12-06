@@ -16,7 +16,7 @@ import (
 )
 
 func (s *Server) decodeCreateUserRequest(r *http.Request) (
-	req OptCreateUserReq,
+	req OptUserCommand,
 	close func() error,
 	rerr error,
 ) {
@@ -58,7 +58,7 @@ func (s *Server) decodeCreateUserRequest(r *http.Request) (
 
 		d := jx.DecodeBytes(buf)
 
-		var request OptCreateUserReq
+		var request OptUserCommand
 		if err := func() error {
 			request.Reset()
 			if err := request.Decode(d); err != nil {

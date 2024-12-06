@@ -10,36 +10,6 @@ import (
 	"github.com/ogen-go/ogen/validate"
 )
 
-func (s *CreateUserReq) Validate() error {
-	if s == nil {
-		return validate.ErrNilPointer
-	}
-
-	var failures []validate.FieldError
-	if err := func() error {
-		if value, ok := s.Users.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
-		}
-		return nil
-	}(); err != nil {
-		failures = append(failures, validate.FieldError{
-			Name:  "users",
-			Error: err,
-		})
-	}
-	if len(failures) > 0 {
-		return &validate.Error{Fields: failures}
-	}
-	return nil
-}
-
 func (s *UpdateUserReq) Validate() error {
 	if s == nil {
 		return validate.ErrNilPointer
@@ -47,20 +17,13 @@ func (s *UpdateUserReq) Validate() error {
 
 	var failures []validate.FieldError
 	if err := func() error {
-		if value, ok := s.Users.Get(); ok {
-			if err := func() error {
-				if err := value.Validate(); err != nil {
-					return err
-				}
-				return nil
-			}(); err != nil {
-				return err
-			}
+		if err := s.User.Validate(); err != nil {
+			return err
 		}
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "users",
+			Name:  "user",
 			Error: err,
 		})
 	}
@@ -77,6 +40,9 @@ func (s *User) Validate() error {
 
 	var failures []validate.FieldError
 	if err := func() error {
+		if s.Roles == nil {
+			return errors.New("nil is invalid value")
+		}
 		var failures []validate.FieldError
 		for i, elem := range s.Roles {
 			if err := func() error {
@@ -97,7 +63,7 @@ func (s *User) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "Roles",
+			Name:  "roles",
 			Error: err,
 		})
 	}
@@ -114,6 +80,9 @@ func (s *UserCommand) Validate() error {
 
 	var failures []validate.FieldError
 	if err := func() error {
+		if s.Roles == nil {
+			return errors.New("nil is invalid value")
+		}
 		var failures []validate.FieldError
 		for i, elem := range s.Roles {
 			if err := func() error {
@@ -134,7 +103,7 @@ func (s *UserCommand) Validate() error {
 		return nil
 	}(); err != nil {
 		failures = append(failures, validate.FieldError{
-			Name:  "Roles",
+			Name:  "roles",
 			Error: err,
 		})
 	}

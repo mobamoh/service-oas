@@ -31,19 +31,24 @@ generate: ## generate code with ogen based on openapi specs
 	go generate ./...
 
 # ==============================================================================
+# Goose Migrations
+
+#goose -dir "business/sdk/migrate/migrations" postgres "host=localhost port=5432 user=postgres password=VGSGdbQQ7D dbname=postgres sslmode=disable" reset
+
+# ==============================================================================
 # Building containers
 
-GOM_CORE_APP    := service-oas
-BASE_IMAGE_NAME := localhost/service-oas
+SALES_APP       := sales
+BASE_IMAGE_NAME := localhost/mobamoh
 VERSION         := 0.0.1
-GOM_CORE_IMAGE  := $(BASE_IMAGE_NAME)/$(GOM_CORE_APP):$(VERSION)
+SALES_IMAGE     := $(BASE_IMAGE_NAME)/$(SALES_APP):$(VERSION)
 
-build: service-oas
+build: sales
 
-service-oas:
+sales:
 	docker build \
-		-f Dockerfile \
-		-t $(GOM_CORE_IMAGE) \
+		-f zarf/docker/dockerfile.sales \
+		-t $(SALES_IMAGE) \
 		--build-arg BUILD_REF=$(VERSION) \
 		--build-arg BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		.
@@ -53,15 +58,15 @@ service-oas:
 # Docker Compose
 
 compose-up:
-	docker compose -f docker_compose.yaml -p compose up -d
+	cd ./zarf/compose/ && docker compose -f docker_compose.yaml -p compose up -d
 
 compose-build-up: build compose-up
 
 compose-down:
-	docker compose -f docker_compose.yaml down
+	cd ./zarf/compose/ && docker compose -f docker_compose.yaml down
 
 compose-logs:
-	docker compose -f docker_compose.yaml logs
+	cd ./zarf/compose/ && docker compose -f docker_compose.yaml logs
 
 
 # ==============================================================================

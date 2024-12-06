@@ -12,7 +12,7 @@ import (
 )
 
 func encodeCreateUserRequest(
-	req OptCreateUserReq,
+	req OptUserCommand,
 	r *http.Request,
 ) error {
 	const contentType = "application/json"

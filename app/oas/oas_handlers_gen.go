@@ -97,7 +97,7 @@ func (s *Server) handleCreateUserRequest(args [0]string, argsEscaped bool, w htt
 		}
 
 		type (
-			Request  = OptCreateUserReq
+			Request  = OptUserCommand
 			Params   = struct{}
 			Response = *User
 		)

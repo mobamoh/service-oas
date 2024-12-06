@@ -1,6 +1,7 @@
 package mux
 
 import (
+	"github.com/mobamoh/service-oas/business/sdk/sqldb"
 	"github.com/mobamoh/service-oas/foundation/logger"
 	"github.com/mobamoh/service-oas/foundation/web"
 	"go.opentelemetry.io/otel/trace"
@@ -12,6 +13,7 @@ type Config struct {
 	Build  string
 	Log    *logger.Logger
 	Tracer trace.Tracer
+	Pool   *sqldb.Postgres
 }
 
 // RouteAdder defines behavior that sets the routes to bind for an instance

@@ -35,10 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                users:
-                  $ref: "#/components/schemas/UserCommand"
+              $ref: "#/components/schemas/UserCommand"
       responses:
         '201':
           description: Return User details
@@ -60,8 +57,9 @@ paths:
           application/json:
             schema:
               type: object
+              required: [ user ]
               properties:
-                users:
+                user:
                   $ref: "#/components/schemas/UserCommand"
       responses:
         '200':
@@ -77,7 +75,7 @@ paths:
       summary: Return user details
       description: Returns the user details from Sales System
       operationId: queryUserByID
-      security: []
+      security: [ ]
       parameters:
         - $ref: "#/components/parameters/userIdPathParam"
       responses:
@@ -93,7 +91,7 @@ paths:
       summary: Delete user
       description: Deletes the user from the Sales System
       operationId: deleteUserByID
-      security: []
+      security: [ ]
       parameters:
         - $ref: "#/components/parameters/userIdPathParam"
       responses:
@@ -120,7 +118,7 @@ components:
           type: string
         department:
           type: string
-        Roles:
+        roles:
           type: array
           items:
             type: string
@@ -133,6 +131,7 @@ components:
           type: string
         dateUpdated:
           type: string
+      required: [ id, name, email, roles, dateCreated, dateUpdated ]
     UserCommand:
       type: object
       properties:
@@ -140,7 +139,7 @@ components:
           type: string
         email:
           type: string
-        Roles:
+        roles:
           type: array
           items:
             type: string
@@ -153,6 +152,7 @@ components:
           type: string
         passwordConfirm:
           type: string
+      required: [ name,email,roles,password,passwordConfirm ]
   links:
     queryUserByID:
       description: >

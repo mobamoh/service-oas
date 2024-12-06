@@ -6,20 +6,6 @@ import (
 	"github.com/go-faster/errors"
 )
 
-type CreateUserReq struct {
-	Users OptUserCommand `json:"users"`
-}
-
-// GetUsers returns the value of Users.
-func (s *CreateUserReq) GetUsers() OptUserCommand {
-	return s.Users
-}
-
-// SetUsers sets the value of Users.
-func (s *CreateUserReq) SetUsers(val OptUserCommand) {
-	s.Users = val
-}
-
 // DeleteUserByIDNoContent is response for DeleteUserByID operation.
 type DeleteUserByIDNoContent struct{}
 
@@ -63,52 +49,6 @@ func (o OptBool) Get() (v bool, ok bool) {
 
 // Or returns value if set, or given parameter if does not.
 func (o OptBool) Or(d bool) bool {
-	if v, ok := o.Get(); ok {
-		return v
-	}
-	return d
-}
-
-// NewOptCreateUserReq returns new OptCreateUserReq with value set to v.
-func NewOptCreateUserReq(v CreateUserReq) OptCreateUserReq {
-	return OptCreateUserReq{
-		Value: v,
-		Set:   true,
-	}
-}
-
-// OptCreateUserReq is optional CreateUserReq.
-type OptCreateUserReq struct {
-	Value CreateUserReq
-	Set   bool
-}
-
-// IsSet returns true if OptCreateUserReq was set.
-func (o OptCreateUserReq) IsSet() bool { return o.Set }
-
-// Reset unsets value.
-func (o *OptCreateUserReq) Reset() {
-	var v CreateUserReq
-	o.Value = v
-	o.Set = false
-}
-
-// SetTo sets value to v.
-func (o *OptCreateUserReq) SetTo(v CreateUserReq) {
-	o.Set = true
-	o.Value = v
-}
-
-// Get returns value and boolean that denotes whether value was set.
-func (o OptCreateUserReq) Get() (v CreateUserReq, ok bool) {
-	if !o.Set {
-		return v, false
-	}
-	return o.Value, true
-}
-
-// Or returns value if set, or given parameter if does not.
-func (o OptCreateUserReq) Or(d CreateUserReq) CreateUserReq {
 	if v, ok := o.Get(); ok {
 		return v
 	}
@@ -254,43 +194,43 @@ func (o OptUserCommand) Or(d UserCommand) UserCommand {
 }
 
 type UpdateUserReq struct {
-	Users OptUserCommand `json:"users"`
+	User UserCommand `json:"user"`
 }
 
-// GetUsers returns the value of Users.
-func (s *UpdateUserReq) GetUsers() OptUserCommand {
-	return s.Users
+// GetUser returns the value of User.
+func (s *UpdateUserReq) GetUser() UserCommand {
+	return s.User
 }
 
-// SetUsers sets the value of Users.
-func (s *UpdateUserReq) SetUsers(val OptUserCommand) {
-	s.Users = val
+// SetUser sets the value of User.
+func (s *UpdateUserReq) SetUser(val UserCommand) {
+	s.User = val
 }
 
 // Ref: #/components/schemas/User
 type User struct {
-	ID          OptString       `json:"id"`
-	Name        OptString       `json:"name"`
-	Email       OptString       `json:"email"`
+	ID          string          `json:"id"`
+	Name        string          `json:"name"`
+	Email       string          `json:"email"`
 	Department  OptString       `json:"department"`
-	Roles       []UserRolesItem `json:"Roles"`
+	Roles       []UserRolesItem `json:"roles"`
 	Enabled     OptBool         `json:"enabled"`
-	DateCreated OptString       `json:"dateCreated"`
-	DateUpdated OptString       `json:"dateUpdated"`
+	DateCreated string          `json:"dateCreated"`
+	DateUpdated string          `json:"dateUpdated"`
 }
 
 // GetID returns the value of ID.
-func (s *User) GetID() OptString {
+func (s *User) GetID() string {
 	return s.ID
 }
 
 // GetName returns the value of Name.
-func (s *User) GetName() OptString {
+func (s *User) GetName() string {
 	return s.Name
 }
 
 // GetEmail returns the value of Email.
-func (s *User) GetEmail() OptString {
+func (s *User) GetEmail() string {
 	return s.Email
 }
 
@@ -310,27 +250,27 @@ func (s *User) GetEnabled() OptBool {
 }
 
 // GetDateCreated returns the value of DateCreated.
-func (s *User) GetDateCreated() OptString {
+func (s *User) GetDateCreated() string {
 	return s.DateCreated
 }
 
 // GetDateUpdated returns the value of DateUpdated.
-func (s *User) GetDateUpdated() OptString {
+func (s *User) GetDateUpdated() string {
 	return s.DateUpdated
 }
 
 // SetID sets the value of ID.
-func (s *User) SetID(val OptString) {
+func (s *User) SetID(val string) {
 	s.ID = val
 }
 
 // SetName sets the value of Name.
-func (s *User) SetName(val OptString) {
+func (s *User) SetName(val string) {
 	s.Name = val
 }
 
 // SetEmail sets the value of Email.
-func (s *User) SetEmail(val OptString) {
+func (s *User) SetEmail(val string) {
 	s.Email = val
 }
 
@@ -350,32 +290,32 @@ func (s *User) SetEnabled(val OptBool) {
 }
 
 // SetDateCreated sets the value of DateCreated.
-func (s *User) SetDateCreated(val OptString) {
+func (s *User) SetDateCreated(val string) {
 	s.DateCreated = val
 }
 
 // SetDateUpdated sets the value of DateUpdated.
-func (s *User) SetDateUpdated(val OptString) {
+func (s *User) SetDateUpdated(val string) {
 	s.DateUpdated = val
 }
 
 // Ref: #/components/schemas/UserCommand
 type UserCommand struct {
-	Name            OptString              `json:"name"`
-	Email           OptString              `json:"email"`
-	Roles           []UserCommandRolesItem `json:"Roles"`
+	Name            string                 `json:"name"`
+	Email           string                 `json:"email"`
+	Roles           []UserCommandRolesItem `json:"roles"`
 	Department      OptString              `json:"department"`
-	Password        OptString              `json:"password"`
-	PasswordConfirm OptString              `json:"passwordConfirm"`
+	Password        string                 `json:"password"`
+	PasswordConfirm string                 `json:"passwordConfirm"`
 }
 
 // GetName returns the value of Name.
-func (s *UserCommand) GetName() OptString {
+func (s *UserCommand) GetName() string {
 	return s.Name
 }
 
 // GetEmail returns the value of Email.
-func (s *UserCommand) GetEmail() OptString {
+func (s *UserCommand) GetEmail() string {
 	return s.Email
 }
 
@@ -390,22 +330,22 @@ func (s *UserCommand) GetDepartment() OptString {
 }
 
 // GetPassword returns the value of Password.
-func (s *UserCommand) GetPassword() OptString {
+func (s *UserCommand) GetPassword() string {
 	return s.Password
 }
 
 // GetPasswordConfirm returns the value of PasswordConfirm.
-func (s *UserCommand) GetPasswordConfirm() OptString {
+func (s *UserCommand) GetPasswordConfirm() string {
 	return s.PasswordConfirm
 }
 
 // SetName sets the value of Name.
-func (s *UserCommand) SetName(val OptString) {
+func (s *UserCommand) SetName(val string) {
 	s.Name = val
 }
 
 // SetEmail sets the value of Email.
-func (s *UserCommand) SetEmail(val OptString) {
+func (s *UserCommand) SetEmail(val string) {
 	s.Email = val
 }
 
@@ -420,12 +360,12 @@ func (s *UserCommand) SetDepartment(val OptString) {
 }
 
 // SetPassword sets the value of Password.
-func (s *UserCommand) SetPassword(val OptString) {
+func (s *UserCommand) SetPassword(val string) {
 	s.Password = val
 }
 
 // SetPasswordConfirm sets the value of PasswordConfirm.
-func (s *UserCommand) SetPasswordConfirm(val OptString) {
+func (s *UserCommand) SetPasswordConfirm(val string) {
 	s.PasswordConfirm = val
 }
 

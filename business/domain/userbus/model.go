@@ -20,3 +20,22 @@ type User struct {
 	DateCreated  time.Time
 	DateUpdated  time.Time
 }
+
+// NewUser contains information needed to create a new user.
+type NewUser struct {
+	Name       name.Name
+	Email      mail.Address
+	Roles      []role.Role
+	Department name.Null
+	Password   string
+}
+
+// UpdateUser contains information needed to update a user.
+type UpdateUser struct {
+	Name       *name.Name
+	Email      *mail.Address
+	Roles      []role.Role
+	Department *name.Null
+	Password   *string
+	Enabled    *bool
+}

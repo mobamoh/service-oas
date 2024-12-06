@@ -13,7 +13,7 @@ type Handler interface {
 	// Create a user in the system.
 	//
 	// POST /users
-	CreateUser(ctx context.Context, req OptCreateUserReq) (*User, error)
+	CreateUser(ctx context.Context, req OptUserCommand) (*User, error)
 	// DeleteUserByID implements deleteUserByID operation.
 	//
 	// Deletes the user from the Sales System.

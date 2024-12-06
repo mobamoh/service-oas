@@ -509,3 +509,7 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+# compose database data
+zarf/compose/database-data/*

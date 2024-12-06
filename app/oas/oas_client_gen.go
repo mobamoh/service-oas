@@ -28,7 +28,7 @@ type Invoker interface {
 	// Create a user in the system.
 	//
 	// POST /users
-	CreateUser(ctx context.Context, request OptCreateUserReq) (*User, error)
+	CreateUser(ctx context.Context, request OptUserCommand) (*User, error)
 	// DeleteUserByID invokes deleteUserByID operation.
 	//
 	// Deletes the user from the Sales System.
@@ -102,12 +102,12 @@ func (c *Client) requestURL(ctx context.Context) *url.URL {
 // Create a user in the system.
 //
 // POST /users
-func (c *Client) CreateUser(ctx context.Context, request OptCreateUserReq) (*User, error) {
+func (c *Client) CreateUser(ctx context.Context, request OptUserCommand) (*User, error) {
 	res, err := c.sendCreateUser(ctx, request)
 	return res, err
 }
 
-func (c *Client) sendCreateUser(ctx context.Context, request OptCreateUserReq) (res *User, err error) {
+func (c *Client) sendCreateUser(ctx context.Context, request OptUserCommand) (res *User, err error) {
 	otelAttrs := []attribute.KeyValue{
 		otelogen.OperationID("createUser"),
 		semconv.HTTPRequestMethodKey.String("POST"),
